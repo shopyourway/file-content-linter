@@ -15,6 +15,7 @@ sub read_dir($) {
 			read_dir($child);
 		} else {
 			if ($child !~ m|$exclude| ) { #parse the file
+				next if(-B $child || -z $child); #skip binary and empty files
 				parse_file($child);
 			}
 		} 
