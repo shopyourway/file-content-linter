@@ -1,8 +1,21 @@
 
-$where = $ARGV[0];
-$what = $ARGV[1];
-$exclude = $ARGV[2];
-$output_format = $ARGV[3];
+use Getopt::Long;
+
+$usage = "Usage: --path=<PATH TO TARGET DIRECTORY> --what=<REGEX TO SEARCH FOR> [--exclude=<REGEX TO EXCLUDE FILES>] [--output=<LOCAL|TEAMCITY>]";
+
+$where = "";
+$what = "";
+$exclude = "";
+$output_format = "";
+GetOptions ("path=s" => \$where,
+			"what=s" => \$what,
+			"exclude=s"   => \$exclude,
+			"output=s"  => \$output_format)
+or die $usage;
+
+if ($where eq "" || $what eq "") {
+	die $usage
+}
 
 read_dir($where);
 
