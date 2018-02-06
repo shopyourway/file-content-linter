@@ -1,6 +1,8 @@
-$exclude = $ARGV[2];
-$what = $ARGV[1];
+
 $where = $ARGV[0];
+$what = $ARGV[1];
+$exclude = $ARGV[2];
+$output_format = $ARGV[3];
 
 read_dir($where);
 
@@ -31,8 +33,16 @@ sub parse_file($) {
 		$line_number++;
 		#Regex the line
 		if(m|$what|) {
-			print $file . ":" . $line_number . ": " . $_ . "\n";
+			print_match($file, $line_number, @_);
 		}
 	}
 	close(SRC);
+}
+
+sub print_match($) {
+	my ($file) = @_[0];
+	my ($line_number) = @_[1];
+	my ($line) = @_[2];
+
+	print $file . ":" . $line_number . ": " . $_ . "\n";
 }
