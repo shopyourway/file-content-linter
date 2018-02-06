@@ -1,3 +1,4 @@
+$exclude = $ARGV[2];
 $what = $ARGV[1];
 $where = $ARGV[0];
 
@@ -12,9 +13,11 @@ sub read_dir($) {
 		my $child = $dir  . "\\" . $elem;
 		if(-d $child && $elem !~ m|^\.|) { #directory
 			read_dir($child);
-		} else { #parse the file
-			parse_file($child);
-		}
+		} else {
+			if ($child !~ m|$exclude| ) { #parse the file
+				parse_file($child);
+			}
+		} 
 	}
 	closedir(DIR);
 }
