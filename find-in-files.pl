@@ -1,5 +1,6 @@
-
 use Getopt::Long;
+
+%output_types = map { $_ => 1 } ("LOCAL", "TEAMCITY");
 
 $usage = "Usage: --path=<PATH TO TARGET DIRECTORY> --what=<REGEX TO SEARCH FOR> [--exclude=<REGEX TO EXCLUDE FILES>] [--output=<LOCAL|TEAMCITY>]";
 
@@ -16,6 +17,8 @@ or die $usage;
 if ($where eq "" || $what eq "") {
 	die $usage
 }
+
+validate_output_format($output_format);
 
 read_dir($where);
 
@@ -58,4 +61,12 @@ sub print_match($) {
 	my ($line) = @_[2];
 
 	print $file . ":" . $line_number . ": " . $_ . "\n";
+}
+
+sub validate_output_format($) {
+	my ($output) = @_;
+	
+	if($output ne "" && !exists($output_types{$output})) { 
+		die "Output format '" . $output  . "' is not valid.\n" . $usage
+	}
 }
