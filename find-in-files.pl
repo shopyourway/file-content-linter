@@ -9,16 +9,17 @@ $what = "";
 $exclude = "";
 $output_format = "";
 GetOptions ("path=s" => \$where,
-			"what=s" => \$what,
+			"term=s" => \$what,
 			"exclude=s"   => \$exclude,
 			"output=s"  => \$output_format)
 or die $usage;
 
-if ($where eq "" || $what eq "") {
-	die $usage
-}
+validate_arguments();
 
-validate_output_format($output_format);
+print "Path: " . $where . "\n";
+print "Term: " . $what . "\n";
+print "Exclude: " . ($exclude eq "" ? "Nothing" : $exclude) . "\n";
+print "Output: " . ($output_format eq "" ? "LOCAL" : $output_format) . "\n";
 
 read_dir($where);
 
@@ -61,6 +62,14 @@ sub print_match($) {
 	my ($line) = @_[2];
 
 	print $file . ":" . $line_number . ": " . $_ . "\n";
+}
+
+sub validate_arguments() {
+	if ($where eq "" || $what eq "") {
+		die $usage
+	}
+
+	validate_output_format($output_format);
 }
 
 sub validate_output_format($) {
