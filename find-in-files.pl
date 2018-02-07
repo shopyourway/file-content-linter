@@ -16,12 +16,11 @@ or die $usage;
 
 validate_arguments();
 
-print "Path: " . $where . "\n";
-print "Term: " . $what . "\n";
-print "Exclude: " . ($exclude eq "" ? "Nothing" : $exclude) . "\n";
-print "Output: " . ($output_format eq "" ? "LOCAL" : $output_format) . "\n";
+print_start();
 
 read_dir($where);
+
+print_finish();
 
 exit(0);
 
@@ -64,6 +63,25 @@ sub print_match($) {
 		print "##teamcity[testFailed name='" . $file ."' message='Found " . $match  . "' details='File \"" . $file .  ":" . $line_number . "\" contains \"" . $match . "\". " . $_ . " ']\n";
 	} else {
 		print $file . ":" . $line_number . ": " . $match ." : " . $_ . "\n";
+	}
+}
+
+sub print_start() {
+	if ($output_format eq "TEAMCITY") {
+		print "##teamcity[progressStart 'Starting to check files at " . $where . "']\n";
+	} 
+
+	print "Path: " . $where . "\n";
+	print "Term: " . $what . "\n";
+	print "Exclude: " . ($exclude eq "" ? "Nothing" : $exclude) . "\n";
+	print "Output: " . ($output_format eq "" ? "LOCAL" : $output_format) . "\n";
+}
+
+sub print_finish() {
+	if ($output_format eq "TEAMCITY") {
+		print "##teamcity[progressFinish  'Finish checking files at " . $where . "']\n";
+	} else {
+		print "All done!\n";
 	}
 }
 
