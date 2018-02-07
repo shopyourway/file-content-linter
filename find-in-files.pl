@@ -49,19 +49,22 @@ sub parse_file($) {
 	while(<SRC>) {
 		$line_number++;
 		#Regex the line
-		if(m|$what|) {
-			print_match($file, $line_number, @_);
+		if(m|($what)|) {
+			my $match = $1;
+			print_match($file, $line_number, @_, $match);
 		}
 	}
 	close(SRC);
 }
 
 sub print_match($) {
-	my ($file) = @_[0];
-	my ($line_number) = @_[1];
-	my ($line) = @_[2];
-
-	print $file . ":" . $line_number . ": " . $_ . "\n";
+	my ($file, $line_number, $line, $match) = @_;
+	
+	if ($output_format eq "TEAMCITY") {
+		print "##teamcity[testFailed name='" . $file ."' message='Found " . $match  . "' details='File \"" . $file .  ":" . $line_number . "\" contains \"" . $match . "\". " . $_ . " ']\n";
+	} else {
+		print $file . ":" . $line_number . ": " . $match ." : " . $_ . "\n";
+	}
 }
 
 sub validate_arguments() {
