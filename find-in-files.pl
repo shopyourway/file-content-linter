@@ -60,7 +60,7 @@ sub print_match($) {
 	my ($file, $line_number, $line, $match) = @_;
 	
 	if ($output_format eq "TEAMCITY") {
-		print "##teamcity[testFailed name='" . $file ."' message='Found " . $match  . "' details='File \"" . $file .  ":" . $line_number . "\" contains \"" . $match . "\". " . $_ . " ']\n";
+		print "##teamcity[testFailed name='" . $file ."' message='Found " . $match  . "' details='File " . $file .  ":" . $line_number . " contains " . $match . ". " . $_ . " ']\n";
 	} else {
 		print $file . ":" . $line_number . ": " . $match ." : " . $_ . "\n";
 	}
