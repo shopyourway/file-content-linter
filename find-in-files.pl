@@ -2,7 +2,7 @@ use Getopt::Long;
 
 %output_types = map { $_ => 1 } ("LOCAL", "TEAMCITY");
 
-$usage = "Usage: --path=<PATH TO TARGET DIRECTORY> --what=<REGEX TO SEARCH FOR> [--exclude=<REGEX TO EXCLUDE FILES>] [--output=<LOCAL|TEAMCITY>]";
+$usage = "Usage: --path=<PATH TO TARGET DIRECTORY> --term=<REGEX TO SEARCH FOR> [--exclude=<REGEX TO EXCLUDE FILES>] [--output=<LOCAL|TEAMCITY>]";
 
 $where = "";
 $what = "";
