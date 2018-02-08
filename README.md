@@ -1,5 +1,5 @@
 # File Content Linter
-File content linter is a utility allowing you to validate that information that is important to you does not appear in text files in a given directory.<br/>
+File content linter is a utility, aimed for Continuous Integration, for validating that important information does not appear in text files in a given directory.<br/>
 Our main usage of it is to make sure code we publish to Open Source does not include internal stuff, like credentails or server names.
 
 ## Highlights
