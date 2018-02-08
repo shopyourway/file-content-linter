@@ -30,14 +30,14 @@ Regex describing what to look for
 ##### output (optional)
 Output type for matches.
 
-'''LOCAL''': for local machine run. Output will be <code>FILENAME:LINENUMBER:MATCH:LINE</code><br/>
-'''TEAMCITY''': for output that allows integration with TeamCity
+__LOCAL__: for local machine run. Output will be <code>FILENAME:LINENUMBER:MATCH:LINE</code><br/>
+__TEAMCITY__: for output that allows integration with TeamCity
 ### Example
-<code>
+<pre>
 perl ./find-in-files.pl --path="~/dev/myproject/" --term="password" --exclude="\.crt$" --output="TEAMCITY"
-<code>
+</pre>
 
-This command will scan all the files under <code>~/dev/myproject/</codere> except files with '''crt''' extension for the word '''password''', each match will create an output that TeamCity will recognize as failed test.
+This command will scan all the files under <code>~/dev/myproject/</codere> except files with __crt__ extension for the word __password__, each match will create an output that TeamCity will recognize as failed test.
 
 ## Development
 
