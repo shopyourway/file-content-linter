@@ -82,6 +82,10 @@ sub print_match($) {
 	my $line = $_;
 	$line =~ s|\n||;
 	$line =~ s|\t||;
+	$line =~ s|'|\|'|;
+	$line =~ s|[|\|[|;
+	$line =~ s|]|\|]|;
+	$line =~ s|\||\|\||;
 
 	if ($output_format eq "TEAMCITY") {
 		print "##teamcity[testFailed name='" . $file .":". $line_number . "' message='Found " . $match  . "' details='" . $line_number . ":" . $match . ":" . $line . "']\n";
