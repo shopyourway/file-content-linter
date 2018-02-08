@@ -50,17 +50,21 @@ sub parse_file($) {
 		#Regex the line
 		if(m|($what)|) {
 			my $match = $1;
-			print_match($file, $line_number, @_, $match);
+			print_match($file, $line_number, $match);
 		}
 	}
 	close(SRC);
 }
 
 sub print_match($) {
-	my ($file, $line_number, $line, $match) = @_;
-	
+	my ($file, $line_number, $match) = @_;
+
+	my $line = $_;
+	$line =~ s|\n||;
+	$line =~ s|\t||;
+
 	if ($output_format eq "TEAMCITY") {
-		print "##teamcity[testFailed name='" . $file ."' message='Found " . $match  . "' details='File " . $file .  ":" . $line_number . " contains " . $match . ". " . $_ . " ']\n";
+		print "##teamcity[testFailed name='" . $file ."' message='Found " . $match  . "' details='" . $line_number . ":" . $match . ":" . $line . "']\n";
 	} else {
 		print $file . ":" . $line_number . ": " . $match ." : " . $_ . "\n";
 	}
