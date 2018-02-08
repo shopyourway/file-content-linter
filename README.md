@@ -37,7 +37,7 @@ __TEAMCITY__: for output that allows integration with TeamCity
 perl ./find-in-files.pl --path="~/dev/myproject/" --term="password" --exclude="\.crt$" --output="TEAMCITY"
 </pre>
 
-This command will scan all the files under <code>~/dev/myproject/</codere> except files with __crt__ extension for the word __password__, each match will create an output that TeamCity will recognize as failed test.
+This command will scan all the files under <code>~/dev/myproject/</code> except files with __crt__ extension for the word __password__, each match will create an output that TeamCity will recognize as failed test.
 
 ## Development
 
