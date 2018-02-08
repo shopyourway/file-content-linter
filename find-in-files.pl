@@ -50,7 +50,7 @@ sub parse_file($) {
 		
 		$line_number++;
 		#Regex the line
-		if(m|($what)|) {
+		if(m|($what)|i) {
 			my $match = $1;
 			print_match($file, $line_number, $match);
 		}
