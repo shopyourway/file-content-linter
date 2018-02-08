@@ -43,17 +43,37 @@ sub read_dir($) {
 sub parse_file($) {
 	my ($file) = @_;
 	my $line_number = 0;
+	print_start_file($file);
 	open(SRC, $file);
 	#read file line-by-line
 	while(<SRC>) {
+		
 		$line_number++;
 		#Regex the line
 		if(m|($what)|) {
 			my $match = $1;
 			print_match($file, $line_number, $match);
 		}
+		
 	}
 	close(SRC);
+	print_finish_file($file);
+}
+
+sub print_start_file($) {
+	my ($file) = @_;
+
+	if ($output_format eq "TEAMCITY") {
+		print "##teamcity[testStarted name='" .  $file ."']\n";
+	}
+}
+
+sub print_finish_file($) {
+	my ($file) = @_;
+
+	if ($output_format eq "TEAMCITY") {
+		print "##teamcity[testFinished  name='" .  $file ."']\n";
+	}
 }
 
 sub print_match($) {
@@ -64,7 +84,7 @@ sub print_match($) {
 	$line =~ s|\t||;
 
 	if ($output_format eq "TEAMCITY") {
-		print "##teamcity[testFailed name='" . $file ."' message='Found " . $match  . "' details='" . $line_number . ":" . $match . ":" . $line . "']\n";
+		print "##teamcity[testFailed name='" . $file .":". $line_number . "' message='Found " . $match  . "' details='" . $line_number . ":" . $match . ":" . $line . "']\n";
 	} else {
 		print $file . ":" . $line_number . ": " . $match ." : " . $_ . "\n";
 	}
@@ -72,7 +92,7 @@ sub print_match($) {
 
 sub print_start() {
 	if ($output_format eq "TEAMCITY") {
-		print "##teamcity[progressStart 'Starting to check files at " . $where . "']\n";
+		print "##teamcity[testSuiteStarted name='Content validaton']\n";
 	} 
 
 	print "Path: " . $where . "\n";
@@ -83,7 +103,7 @@ sub print_start() {
 
 sub print_finish() {
 	if ($output_format eq "TEAMCITY") {
-		print "##teamcity[progressFinish  'Finish checking files at " . $where . "']\n";
+		print "##teamcity[testSuiteFinished name='Content validaton']\n";
 	} else {
 		print "All done!\n";
 	}
