@@ -83,8 +83,8 @@ sub print_match($) {
 	$line =~ s|\n||;
 	$line =~ s|\t||;
 	$line =~ s|'|\|'|;
-	$line =~ s|[|\|[|;
-	$line =~ s|]|\|]|;
+	$line =~ s|\[|\|\[|;
+	$line =~ s|\]|\|\]|;
 	$line =~ s|\||\|\||;
 
 	if ($output_format eq "TEAMCITY") {
