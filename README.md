@@ -30,7 +30,7 @@ Regex describing what to look for
 ##### output (optional)
 Output type for matches.
 
-__LOCAL__: for local machine run. Output will be <code>FILENAME:LINENUMBER:MATCH:LINE</code><br/>
+__LOCAL__ (default): for local machine run. Output will be <code>FILENAME:LINENUMBER:MATCH:LINE</code><br/>
 __TEAMCITY__: for output that allows integration with TeamCity
 ### Example
 <pre>
